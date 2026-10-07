@@ -8,7 +8,11 @@ const PROVIDERS={
  claude:{name:'Claude',home:'https://claude.ai/new',hosts:['claude.ai'],auth:SIGN_IN,partition:'claude-web',
   unstyled:/^\/(login|logout|oauth|magic-link|sso|api|cdn-cgi|onboarding|verify|signup)(\/|$)/,composer:'[data-testid="chat-input"],div.ProseMirror[contenteditable="true"],fieldset [contenteditable="true"]',
   busy:'button[aria-label="Stop response"],button[aria-label="停止回复"],button[aria-label="停止响应"],[data-testid="stop-button"]',
-  sidebar:null,hint:'对话与用量都记在你的 Claude 账号下。'}
+  sidebar:null,hint:'对话与用量都记在你的 Claude 账号下。'},
+ deepseek:{name:'DeepSeek',home:'https://chat.deepseek.com/',hosts:['chat.deepseek.com'],auth:SIGN_IN,partition:'deepseek-web',
+  unstyled:/^\/(sign_in|sign_up|signin|signup|login|logout|auth|oauth|api|cdn-cgi|verify)(\/|$)/,composer:'textarea,[contenteditable="true"][role="textbox"]',
+  busy:'button[aria-label="Stop generating"],button[aria-label="停止生成"],button[aria-label="Stop response"],button[aria-label="停止回复"],[data-testid="stop-button"]',
+  sidebar:null,hint:'使用 DeepSeek 官网账号聊天，历史与模型由官网管理。'}
 };
 const HOME=PROVIDERS.gpt.home;
 function classify(raw,id='gpt'){

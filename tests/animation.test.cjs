@@ -1,6 +1,6 @@
 const test=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path');
 const {sample,geometry,duration,resolve,frames,Controller,TRACKS}=require('../src/pet-motion.js');
-const manifest=JSON.parse(fs.readFileSync(path.join(__dirname,'../assets/v5/manifest.json'),'utf8')),pets=Object.entries(manifest.characters);
+const manifest=JSON.parse(fs.readFileSync(path.join(__dirname,'../assets/v7/manifest.json'),'utf8')),pets=Object.entries(manifest.characters);
 const names=['entrance','walk','wave','wake','signature','happy','think','sleep','idle','drag','land','goodbye','look','bow','greet','stretch'];
 test('every pose stays inside the window and resolves to cels that exist on disk',()=>{
  for(const [id,{pairs}] of pets){
@@ -43,13 +43,22 @@ test('paced for the eye: nothing is rushed',()=>{
  assert.ok(duration.entrance>=6000&&duration.entrance<=7500,'the entrance keeps its brisker pace');assert.ok(duration.wave>=2500);assert.ok(duration.signature>=6000);
  for(const [name,steps] of Object.entries(TRACKS))if(name!=='entrance')for(const [key,move] of steps)assert.ok(move===0||move>=(key.startsWith('n')?90:180),`${key} moves in ${move} ms`);
 });
-test('entrance completes at one fixed house size, walking retains the original eight cels, actions start from the current pose',()=>{
+test('entrance completes at one fixed house size, walking visits all eight cels, actions start from the current pose',()=>{
  assert.ok(sample('entrance',duration.entrance).done);assert.ok(!sample('entrance',duration.entrance-20).done);
  for(let t=0;t<duration.entrance;t+=50)assert.equal(sample('entrance',t).stageScale,1);
  const seen=new Set();for(let t=0;t<duration.walk;t+=10)seen.add(sample('walk',t).a);
  for(let i=0;i<8;i++)assert.ok(seen.has('m'+i));
  const c=new Controller(0);c.play('think',0);c.play('idle',5000);assert.equal(c.options.from,'b3');
  assert.deepEqual([sample('idle',0,{from:'b3'}).a,sample('idle',0,{from:'b3'}).b],['b3','b0']);
+});
+test('only requested gestures and walking gain 50% speed; stretching retains its duration',()=>{
+ for(const name of ['look','bow','greet'])assert.ok(Math.abs(duration[name]-3980/1.5)<1e-8);
+ assert.equal(duration.stretch,3980);
+ assert.equal(duration.walk,9840/1.5);
+ for(const t of [0,100,270,540,800,1100]){
+  const p=sample('walk',(560+t)/1.5);
+  const i=Math.floor(t/270)%8;assert.equal(p.a,'m'+i);
+ }
 });
 test('entrance retains every old cel and adds exactly ten reachable inserts per pet',()=>{
  const old=JSON.parse(fs.readFileSync(path.join(__dirname,'../assets/v4/manifest.json'),'utf8'));
@@ -66,11 +75,18 @@ test('explicit insert lists resolve in both directions without discarding origin
  assert.deepEqual(frames(pairs,true),['e0','e1','old1','new','old2']);
  assert.equal(resolve(pairs,'e0','e1',.5).lo,'new');assert.equal(resolve(pairs,'e1','e0',.5).lo,'new');
 });
-test('walk retains the original whole-character poses and in-betweens',()=>{
+test('Claude retains original walking; GPT and DeepSeek load new whole-character frames without old gait inserts',()=>{
  const old=JSON.parse(fs.readFileSync(path.join(__dirname,'../assets/v4/manifest.json'),'utf8'));
  for(const [id,{pairs,files}] of pets){
-  for(const name of ['b0-m0',...Array.from({length:8},(_,i)=>'m'+i+'-m'+((i+1)%8))])assert.deepEqual(pairs[name],old.characters[id].pairs[name]);
-  assert.ok(Object.keys(files).every(k=>!/^w\d+$/.test(k)));
+  for(const name of ['b0-m0',...Array.from({length:8},(_,i)=>'m'+i+'-m'+((i+1)%8))])assert.deepEqual(pairs[name],id==='claude'?old.characters[id].pairs[name]:0);
+  if(id==='claude'){for(let i=0;i<8;i++)assert.equal(files['m'+i],undefined);continue;}
+  const hashes=new Set();
+  for(let i=0;i<8;i++){
+   assert.equal(files['m'+i],`../assets/${id==='gpt'?'v7':'v6'}/${id}/m${i}.webp`);
+   const data=fs.readFileSync(path.resolve(__dirname,'../src',files['m'+i]));
+   assert.notDeepEqual(data,fs.readFileSync(path.join(__dirname,`../assets/v3/${id}/m${i}.webp`)));
+   hashes.add(require('crypto').createHash('sha256').update(data).digest('hex'));
+  }assert.equal(hashes.size,8);
  }
  for(let t=0;t<duration.walk;t+=19){const a=sample('walk',t,{direction:-1}),b=sample('walk',t,{direction:1});assert.equal(a.a,b.a);assert.equal(a.b,b.b);assert.equal(a.t,b.t);assert.equal(a.facing,-b.facing);}
 });
@@ -79,5 +95,22 @@ test('full body and the whole house fit the window at every supported size',()=>
   assert.ok(g.anchorY-size*488/512-14*g.factor>=0);assert.ok(g.anchorY+size*24/512<=g.height);
   for(const [id,{entranceAnchor:a}] of pets){const stage=g.actorHeight/a.height*512,x=g.anchorX-a.x/512*stage,y=g.anchorY-a.y/512*stage;
    assert.ok(x>=-1&&y>=-1&&x+stage<=g.width+1&&y+stage<=g.height+1,`${id} house at ${s.toFixed(2)}`);}
+ }
+});
+test('rest uses cleaned sprites: neighboring hair fragments disappear and central artwork stays unchanged',async()=>{
+ const sharp=require('sharp');
+ for(const [id,{files}] of pets){
+  assert.equal(files.b6,`../assets/v6/${id}/b6.webp`);
+  const original=await sharp(path.join(__dirname,`../assets/v3/${id}/b6.webp`)).ensureAlpha().raw().toBuffer();
+  const fixed=await sharp(path.resolve(__dirname,'../src',files.b6)).ensureAlpha().raw().toBuffer();
+  assert.equal(fixed.length,512*512*4);
+  // The face, outfit and central silhouette are original pixels, not redraws.
+  for(let y=70;y<475;y++)for(let x=150;x<380;x++){
+   const p=(y*512+x)*4;
+   if(original[p+3]===255)assert.deepEqual(fixed.subarray(p,p+4),original.subarray(p,p+4));
+  }
+  const artifact=id==='claude'?{x:90,y:275}:id==='gpt'?{x:85,y:239}:{x:260,y:41};
+  assert.ok(original[(artifact.y*512+artifact.x)*4+3]>0,'sample is an original neighboring fragment');
+  assert.equal(fixed[(artifact.y*512+artifact.x)*4+3],0,'neighboring fragment is transparent');
  }
 });

@@ -14,7 +14,10 @@ scene.style.setProperty('--accent', char.accent);
 let prefs = { scale: .5, wander: true, reducedMotion: false };
 let geo = PetMotion.geometry(.5), loaded = false, thinking = false, sleeping = false;
 let hover = false, dragging = false, pressed = null, lastHit = false;
-let lastInteraction = performance.now(), nextAmbient = performance.now() + 13000;
+const AMBIENT_INTERVAL = 12000;
+const ambientDelay = () => AMBIENT_INTERVAL * (1 + Math.random() * 2);
+let lastInteraction = performance.now(), nextAmbient = lastInteraction + ambientDelay(), lastAmbientAction = null;
+function scheduleAmbient(now = performance.now()) { nextAmbient = now + ambientDelay(); }
 let lastTick = performance.now(), moveRemainder = 0, bubbleDeadline = 0, hoverDeadline = 0;
 let walkingDirection = -1, queuedHappy = false, currentPose = null, currentCel = 'b0';
 let particles = [], modelBounds = null, stageBounds = null, debugSeek = null;
@@ -89,6 +92,8 @@ function play(name, options = {}) {
 function rest() {
   if (queuedHappy && !thinking) { queuedHappy = false; play('happy'); return; }
   play(thinking ? 'think' : sleeping ? 'sleep' : 'idle');
+  // Leave a full quiet interval after an action, rather than counting its playback as rest.
+  if (engine.name === 'idle') scheduleAmbient();
 }
 async function entrance() {
   sleeping = false; hover = false; scene.classList.remove('hover');
@@ -102,7 +107,7 @@ async function entrance() {
   burst(stageBounds.x + stageBounds.size * .55, stageBounds.y + stageBounds.size * .45, 12, stageBounds.size * .3);
 }
 function act(name) {
-  lastInteraction = performance.now(); nextAmbient = lastInteraction + 12000;
+  lastInteraction = performance.now(); scheduleAmbient(lastInteraction);
   if (name === 'entrance') { entrance(); return; }
   if (name === 'goodbye') { thinking = false; sleeping = false; play('goodbye'); burst(geo.anchorX, geo.anchorY - geo.actorHeight * .5, 10, geo.actorHeight * .4); return; }
   if (engine.name === 'entrance' || dragging) return;
@@ -184,11 +189,12 @@ function drawParticles(now, delta) {
 }
 function updateAmbient(now) {
   if (now < nextAmbient || engine.name !== 'idle' || hover || dragging || thinking || sleeping) return;
-  nextAmbient = now + 13000 + Math.random() * 7000;
   if (now - lastInteraction > 150000) { sleeping = true; play('sleep'); return; }
   const interaction = lastInteraction;
   const choices = prefs.reducedMotion ? ['signature', 'wave'] : ['signature', 'walk', 'look', 'bow', 'greet', 'stretch'];
-  act(choices[Math.floor(Math.random() * choices.length)]);
+  const available = choices.filter(name => name !== lastAmbientAction && (name !== 'walk' || prefs.wander));
+  lastAmbientAction = available[Math.floor(Math.random() * available.length)];
+  act(lastAmbientAction);
   lastInteraction = interaction;
 }
 function draw(now) {
@@ -198,7 +204,7 @@ function draw(now) {
     let pose = debugSeek ? PetMotion.sample(debugSeek.name, debugSeek.time, debugSeek.options) : engine.current(now, { reduced: prefs.reducedMotion });
     if (pose.done && !debugSeek && engine.name !== 'goodbye') {
       const old = engine.name; rest(); pose = engine.current(now, { reduced: prefs.reducedMotion });
-      if (old === 'entrance') { scene.classList.remove('entering'); freeStage(); say(char.hello); nextAmbient = now + 12000; }
+      if (old === 'entrance') { scene.classList.remove('entering'); freeStage(); say(char.hello); }
     }
     if (engine.name === 'entrance' && !debugSeek && !outroSparkled && pose.opacity > 0) {
       outroSparkled = true; burst(stageBounds.x + stageBounds.size * .6, stageBounds.y + stageBounds.size * .5, 14, stageBounds.size * .32);
@@ -207,7 +213,7 @@ function draw(now) {
     if (engine.name === 'walk' && !debugSeek) {
       if (hover || dragging || thinking) rest();
       else {
-        moveRemainder += delta / 1000 * (id === 'deepseek' ? 30 : id === 'claude' ? 25 : 27) * geo.factor * walkingDirection * pose.speed;
+        moveRemainder += delta / 1000 * (id === 'deepseek' ? 15 : id === 'claude' ? 12.5 : 13.5) * PetMotion.WALK_SPEED * geo.factor * walkingDirection * pose.speed;
         const dx = Math.trunc(moveRemainder); if (dx) { api.signal('wander', dx); moveRemainder -= dx; }
       }
     }

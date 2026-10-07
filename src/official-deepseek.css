@@ -1,0 +1,8 @@
+/* Cosmetic sea-house colours; only applied on a loaded chat composer.
+   Authentication and verification pages retain their original presentation. */
+html,body { background:#f6fbfd!important; color-scheme:light!important; accent-color:#4b87b6; caret-color:#4b87b6; }
+::selection { background:#cbe9f4; color:#254c68; }
+textarea,[contenteditable="true"][role="textbox"] { font-family:'Segoe UI','Microsoft YaHei UI',sans-serif!important; }
+pre { border-radius:12px!important; }
+::-webkit-scrollbar { width:6px; height:6px; }
+::-webkit-scrollbar-thumb { background:#c2dfea; border-radius:8px; }

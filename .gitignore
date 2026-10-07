@@ -1,7 +1,7 @@
 # Dependencies, builds, temporary previews and local application profiles
 node_modules/
 dist/
-build/
+/build/
 out/
 .cache/
 artifacts/
@@ -52,7 +52,7 @@ Local State
 .idea/
 
 # Personal reference downloads and local image-generation work files.
-# Runtime frames in assets/v3, v4 and v5 are intentionally distributed.
+# Runtime frames in assets/v3 through v7 are intentionally distributed.
 /Camera_XHS_*
 /assets/source/
 /assets/v2/

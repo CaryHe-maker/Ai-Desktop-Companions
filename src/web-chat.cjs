@@ -3,7 +3,7 @@ const fs=require('node:fs'),path=require('node:path');
 const {PROVIDERS,classify,canStyle}=require('./web-policy.cjs');
 // The official page is shown inside the card drawn by web-chat.html; keep these in step with web-chat.css.
 const FRAME={left:9,top:59,right:9,bottom:9,radius:13};
-const PAPER={gpt:'#fbf9fd',claude:'#fdfaf5'};
+const PAPER={gpt:'#fbf9fd',claude:'#fdfaf5',deepseek:'#f6fbfd'};
 function attachOfficialChat(win,{id='gpt',test=false,zoom=1,logFile=null,previousAgent=null,onAgent=()=>{},onState=()=>{},onZoom=()=>{},onSettings=()=>{}}={}){
  // Navigation diary for troubleshooting: where the page went and how the server answered. Paths only, never queries, cookies or content.
  const note=(...parts)=>{if(!logFile)return;try{if(fs.existsSync(logFile)&&fs.statSync(logFile).size>400000)fs.renameSync(logFile,logFile+'.old');fs.appendFileSync(logFile,new Date().toISOString()+' '+id+' '+parts.join(' ')+'\n');}catch{}};
@@ -39,7 +39,7 @@ function attachOfficialChat(win,{id='gpt',test=false,zoom=1,logFile=null,previou
   contents.on('will-navigate',navigate);contents.on('will-redirect',navigate);
   contents.setWindowOpenHandler(({url})=>{
    const kind=classify(url,id);
-   if(kind==='chat'||kind==='auth')return {action:'allow',overrideBrowserWindowOptions:{width:560,height:740,parent:win,autoHideMenuBar:true,webPreferences:safePrefs}};
+   if(kind==='chat'||kind==='auth')return {action:'allow',overrideBrowserWindowOptions:{width:560,height:740,parent:win,alwaysOnTop:false,autoHideMenuBar:true,webPreferences:safePrefs}};
    if(kind==='external')external(url).catch(()=>{});return {action:'deny'};
   });
   contents.on('did-create-window',popup=>{popups.add(popup);popup.on('closed',()=>popups.delete(popup));secureRemote(popup.webContents);});

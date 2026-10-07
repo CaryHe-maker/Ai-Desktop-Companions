@@ -1,10 +1,10 @@
 const id=new URLSearchParams(location.search).get('pet')||'gpt',char=CHARACTERS[id],api=window.deskbot,$=s=>document.querySelector(s);
-const site={gpt:'ChatGPT',claude:'Claude'}[id];
+const site={gpt:'ChatGPT',claude:'Claude',deepseek:'DeepSeek'}[id];
 document.body.dataset.pet=id;document.title=`${char.name} · 官方聊天`;
 $('#avatar').src=`../assets/${id}-icon.png`;$('#veil-pet').src=`../assets/${id}/pose-2.png`;
 $('#title').textContent=`${char.name} · ${char.title}`;$('#settings-title').textContent=char.home+'设置';
 $('#about-title').textContent=`官方 ${site} 网页`;
-$('#about-1').textContent=id==='gpt'?'直接在官方页面登录、发送文字和图片、使用搜索，消耗的是你 ChatGPT 账号自己的额度。请选择普通 Chat 模式；切换到 Work 会采用不同的用量规则。':'直接在官方 claude.ai 页面登录并聊天，消耗的是你 Claude 账号自己的额度；模型、附件、联网等功能都以官方网页为准。';
+$('#about-1').textContent=id==='gpt'?'直接在官方页面登录、发送文字和图片、使用搜索，消耗的是你 ChatGPT 账号自己的额度。请选择普通 Chat 模式；切换到 Work 会采用不同的用量规则。':`直接在官方 ${id==='deepseek'?'chat.deepseek.com':'claude.ai'} 页面登录并聊天，使用你自己的 ${site} 账号；模型、附件、联网及历史等功能以官方网页为准。`;
 let settingsOpen=false;
 function status(v){
  const text=v.busy?`${char.name} 正在回复…`:v.loading&&v.ready?'正在加载…':v.message;

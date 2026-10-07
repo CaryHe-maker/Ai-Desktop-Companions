@@ -1,29 +1,35 @@
 {
   "name": "deskbot-companions",
-  "version": "1.0.0",
+  "version": "1.0.5",
   "private": true,
   "license": "MIT",
-  "repository": { "type": "git", "url": "https://github.com/CaryHe-maker/Ai-Desktop-Companions.git" },
-  "engines": { "node": ">=22.12.0" },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/CaryHe-maker/Ai-Desktop-Companions.git"
+  },
+  "engines": {
+    "node": ">=22.12.0"
+  },
   "description": "Three little companions for your Windows desktop",
   "main": "src/main.cjs",
   "scripts": {
     "start": "electron .",
-    "assets": "node scripts/prepare-assets.cjs",
+    "assets": "node scripts/assets/prepare-assets.cjs",
     "test": "node --test tests/*.test.cjs",
-    "test:ui": "node scripts/smoke.cjs",
-    "test:animation": "node scripts/check-animation.cjs",
-    "check:release": "node scripts/check-release.cjs",
-    "package": "node scripts/package.cjs"
+    "test:ui": "node scripts/checks/smoke.cjs",
+    "test:web": "node scripts/checks/check-web-chat.cjs",
+    "test:animation": "node scripts/checks/check-animation.cjs",
+    "test:ambient": "node scripts/checks/check-ambient.cjs",
+    "test:layers": "node scripts/checks/check-window-layers.cjs",
+    "check:release": "node scripts/checks/check-release.cjs",
+    "package": "node scripts/build/package.cjs",
+    "build:installer": "powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/windows/build-installer.ps1",
+    "test:installer": "powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/checks/check-installer.ps1"
   },
   "devDependencies": {
     "@electron/packager": "^20.3.0",
     "electron": "^44.5.1",
     "playwright": "^1.63.0",
     "sharp": "^0.35.5"
-  },
-  "dependencies": {
-    "fast-xml-parser": "^5.11.2",
-    "jose": "^6.2.12"
   }
 }

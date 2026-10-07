@@ -13,9 +13,9 @@
   const WAVE = [['m12', 240, 0], ['m13', 280, 70], ['m14', 260, 130], ['m13', 260, 50], ['m14', 260, 130], ['m13', 260, 70], ['m15', 300, 150], ['m12', 300, 0]];
   const HOME = [['b0', 320, 0]];
   // Sixteen newly drawn cels per gesture, with time to ease into and out of it.
-  const gesture = start => [...Array.from({length:16}, (_,i) => ['n'+(start+i), i ? 90 : 320, 0, 1]), ...HOME];
+  const gesture = (start, speed = 1) => [...Array.from({length:16}, (_,i) => ['n'+(start+i), (i ? 180 : 640) / speed, 0, 1]), ['b0',640 / speed,0]];
   const TRACKS = {
-    look: gesture(0), bow: gesture(16), greet: gesture(32), stretch: gesture(48),
+    look: gesture(0, 1.5), bow: gesture(16, 1.5), greet: gesture(32, 1.5), stretch: gesture(48),
     entrance: [['e0', 0, 330], ['e1', 250, 110], ['e2', 270, 240], ['e3', 270, 130], ['e4', 300, 150],
       ['e5', 270, 0, 1], ['e6', 250, 0, 1], ['e7', 250, 0, 1], ['e8', 250, 0, 1], ['e9', 250, 0, 1], ['e10', 250, 0, 1],
       ['e11', 250, 0, 1], ['e12', 260, 50], ['e13', 260, 250], ['e14', 220, 210], ['e15', 240, 260]],
@@ -27,7 +27,8 @@
     think: [['b3', 380, 0]], sleep: [['b6', 560, 0]], drag: [['b7', 180, 0]], land: [['b0', 240, 420]], idle: HOME
   };
   const length = steps => steps.reduce((sum, s) => sum + s[1] + s[2], 0);
-  const INTRO = 360, OUTRO = 760, STEP = 135, WALK_IN = 280, WALK_OUT = 320, CYCLES = 4;
+  const WALK_SPEED = 1.5;
+  const INTRO = 360, OUTRO = 760, STEP = 270 / WALK_SPEED, WALK_IN = 560 / WALK_SPEED, WALK_OUT = 640 / WALK_SPEED, CYCLES = 4;
   const entranceDuration = INTRO + length(TRACKS.entrance);
   const duration = { entrance: entranceDuration + OUTRO, wave: length(TRACKS.wave), wake: length(TRACKS.wake),
     signature: length(TRACKS.signature), happy: length(TRACKS.happy), land: length(TRACKS.land),
@@ -67,7 +68,7 @@
       else if (t < end) { const u = ((t - WALK_IN) % loop) / STEP, i = Math.floor(u) % 8; p.a = 'm' + i; p.b = 'm' + (i + 1) % 8; p.t = u - Math.floor(u); }
       else { p.a = 'm0'; p.b = 'b0'; p.t = ease((t - end) / WALK_OUT); }
       p.facing = options.direction > 0 ? -1 : 1;
-      p.speed = Math.min(ease((t - WALK_IN * .5) / 360), 1 - ease((t - end) / (WALK_OUT * .6)));
+      p.speed = Math.min(ease((t - WALK_IN * .5) / (720 / WALK_SPEED)), 1 - ease((t - end) / (WALK_OUT * .6)));
       p.breathe = .3; p.done = t >= total;
     } else if (name === 'happy') {
       const f = use(follow(TRACKS.happy, from, t));
@@ -151,5 +152,5 @@
       factor, actorHeight: 112 * factor, stageSize: 205 * factor,
       anchorX: width * .45, anchorY: 218 * factor, scale };
   }
-  return { Controller, sample, resolve, frames, follow, geometry, TRACKS, entranceDuration, duration, ease, clamp };
+  return { Controller, sample, resolve, frames, follow, geometry, TRACKS, entranceDuration, duration, ease, clamp, WALK_SPEED };
 });
