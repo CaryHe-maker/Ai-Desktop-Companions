@@ -7,7 +7,7 @@
 | src | Electron 主进程、网页视图、聊天 UI、动画播放 |
 | assets/v3 | 原有关键帧与补间，部分动作仍使用 |
 | assets/v4 | 每个角色 64 张日常动作 |
-| assets/v5 | 开场新增帧、双腿行走帧、当前清单及步态元数据 |
+| assets/v5 | 开场新增帧及当前清单 |
 | scripts | 打包、激活、测试和可选素材工具 |
 | tests | 不访问真实模型的自动测试 |
 
@@ -19,15 +19,15 @@ Node.js 最低 22.12，推荐 24 LTS。Windows 10/11 x64 为当前支持环境�
 
 运行清单为 `src/animation-assets.js`，当前 JSON 源清单为 `assets/v5/manifest.json`。`pet-motion.js` 控制时间轴和帧解析，`pet.js` 使用 Canvas 绘制并控制窗口移动。数值型帧对表示原补间数量；数组型帧对用于保留原图并插入新图。`files` 字段提供新增资源的相对路径。
 
-每个角色在原开场序列中新增 10 帧。行走使用近侧、远侧腿部件与程序骨骼合成 16 张帧，组成完整两步循环，避免重复同一条腿。
+每个角色在原开场序列中新增 10 帧。行走保留原来的 8 张完整角色关键帧、补间和播放节奏，不使用拆分腿部模板。
 
-仓库分发已生成的运行资源；`assets/source/` 本机生成记录及参考下载不提交。`prepare-v*.cjs`、`bake-walk.cjs` 等为**可选素材工具**，需自行准备匹配的图集，不属于初次安装步骤。历史 Python 光流工具需要自备 Python、NumPy、OpenCV；默认运行和测试不依赖它们。
+仓库分发已生成的运行资源；`assets/source/` 本机生成记录及参考下载不提交。`prepare-v*.cjs` 等为**可选素材工具**，需自行准备匹配的图集，不属于初次安装步骤。历史 Python 光流工具需要自备 Python、NumPy、OpenCV；默认运行和测试不依赖它们。
 
 公开提示词见 `docs/IMAGE_PROMPTS.json`，已去除本机路径和生成会话标识。美术权利说明见 `ASSET_NOTICE.md`。
 
 ## 验证与发布
 
-- `npm test`：动画路径、帧数、双腿相位、几何和模拟服务响应。
+- `npm test`：动画路径、帧数、原版行走保留、几何和模拟服务响应。
 - `npm run test:ui`：实际 Windows 角色、会话、窗口层级及渲染隔离。
 - `npm run test:animation`：帧率及原生窗口移动稳定性。
 - `node scripts/check-web-chat.cjs`：本地示例网页，不需官网登录。
