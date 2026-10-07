@@ -1,0 +1,19 @@
+* { box-sizing: border-box; }
+html, body { margin: 0; width: 100%; height: 100%; overflow: hidden; background: transparent; font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif; user-select: none; }
+#scene { position: absolute; left: 0; top: 0; width: 320px; height: 260px; --accent: #8c75b7; }
+#animation { position: absolute; inset: 0; pointer-events: none; }
+#pet { position: absolute; cursor: grab; touch-action: none; outline: none; border-radius: 45% 45% 25% 25%; }
+#pet:focus-visible { outline: 1px dashed var(--accent); outline-offset: 3px; }
+#scene.dragging #pet { cursor: grabbing; }
+#bubble { position: absolute; max-width: 250px; width: max-content; padding: 9px 13px; border-radius: 13px 13px 13px 4px; background: #fffdf9f5; border: 1px solid #fff; color: #655c6d; box-shadow: 0 4px 15px #39304713; font-size: 11px; line-height: 1.65; opacity: 0; transform: translateY(4px); transition: opacity .22s, transform .22s; pointer-events: none; }
+#bubble.show { opacity: 1; transform: none; }
+#toolbar { position: absolute; display: flex; gap: 0; background: #fffffff5; padding: 3px; border: 1px solid #eee7ef; border-radius: 17px; box-shadow: 0 3px 12px #30204418; opacity: 0; transform: translateY(3px); transition: opacity .2s, transform .2s; pointer-events: none; }
+button { font: inherit; border: 0; cursor: pointer; }
+#toolbar button { width: 25px; height: 25px; padding: 0; border-radius: 50%; background: transparent; color: var(--accent); font-size: 15px; }
+#toolbar button:hover { background: #eee9f2; }
+#toolbar button:focus-visible { outline: 1px solid var(--accent); }
+#scene.hover #toolbar { opacity: 1; transform: none; pointer-events: auto; }
+#nameplate { position: absolute; width: 110px; text-align: center; font-size: 9px; letter-spacing: 1.7px; color: var(--accent); text-shadow: 0 1px 3px white, 0 0 4px white; opacity: 0; transition: opacity .2s; pointer-events: none; }
+#scene.hover #nameplate { opacity: 1; }
+#scene.entering #toolbar, #scene.entering #bubble, #scene.entering #nameplate { opacity: 0 !important; pointer-events: none; }
+#scene.reduced * { transition-duration: 0s; }

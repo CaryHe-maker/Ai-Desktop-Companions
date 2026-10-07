@@ -1,0 +1,28 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'none'"><title>官方聊天</title><link rel="stylesheet" href="chat.css"><link rel="stylesheet" href="web-chat.css"></head><body>
+<div class="app-shell web-shell">
+<header class="bar">
+ <div class="who"><span class="avatar"><img id="avatar" alt=""><i id="dot"></i></span><div class="names"><h1 id="title"></h1><p id="web-message" role="status">正在打开官方页面…</p></div></div>
+ <nav class="tools" aria-label="网页操作">
+  <button data-web="back" id="back" title="返回上一页" aria-label="返回上一页" disabled><svg viewBox="0 0 24 24"><path d="m14.5 6-6 6 6 6"/></svg></button>
+  <button data-web="new" class="pill" title="在官方页面开启新对话"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg><span>新对话</span></button>
+  <button data-web="reload" title="刷新页面" aria-label="刷新页面"><svg viewBox="0 0 24 24"><path d="M19.5 12a7.5 7.5 0 1 1-2.2-5.3M19.5 4.5v4h-4"/></svg></button>
+  <button data-web="menu" title="外观、文字大小与更多" aria-label="更多"><svg viewBox="0 0 24 24"><circle cx="5.5" cy="12" r=".9"/><circle cx="12" cy="12" r=".9"/><circle cx="18.5" cy="12" r=".9"/></svg></button>
+  <i class="divider"></i>
+  <button id="minimize" title="最小化" aria-label="最小化"><svg viewBox="0 0 24 24"><path d="M6 12.5h12"/></svg></button>
+  <button id="close" title="收起聊天" aria-label="收起聊天"><svg viewBox="0 0 24 24"><path d="m7 7 10 10M17 7 7 17"/></svg></button>
+ </nav>
+</header>
+<div class="progress" id="progress"><i></i></div>
+<main class="card" id="card">
+ <div class="veil" id="veil">
+  <div class="veil-art"><div class="orb"></div><img id="veil-pet" alt=""><span class="sparkle s1">✦</span><span class="sparkle s2">✧</span><span class="sparkle s3">✦</span></div>
+  <h2 id="veil-title"></h2><p id="veil-text"></p>
+  <div class="skeleton" id="skeleton"><i></i><i></i><i></i></div>
+  <div class="veil-actions" id="veil-actions" hidden><button data-web="reload" class="primary">重新加载</button><button data-web="browser" class="secondary">在浏览器中打开 ↗</button></div>
+ </div>
+</main>
+<section id="settings-panel" hidden aria-label="设置"><div class="settings-heading"><div><span class="eyebrow">MAKE YOURSELF AT HOME</span><h2 id="settings-title">小屋设置</h2></div><button id="settings-close" class="icon-button" title="返回聊天">×</button></div><div class="settings-content">
+ <div class="settings-card"><h3 id="about-title">官方网页聊天</h3><p id="about-1"></p><p>首次登录后通常不必每次认证；登录过期、退出或安全验证时需要再次登录。这个窗口的登录状态与 Chrome / Edge 相互独立，只保存在本机。</p><p>排版异常时，在「⋯」里关掉“精简外观”即可回到原始网页；官方的历史记录、模型选择与账号设置都在网页自身的菜单中。若官方不允许在内嵌窗口登录（例如部分第三方账号登录），请改用邮箱验证码登录。</p></div>
+ <div class="settings-card"><h3>陪伴的样子</h3><label class="range-label" for="pet-size">角色大小 <span id="size-value">50%</span></label><input id="pet-size" type="range" min="30" max="85" step="5" value="50"><label class="switch-row"><span>偶尔在桌面散散步<small>工作时，也有一点小小的生气</small></span><input id="wander" type="checkbox"></label><label class="switch-row"><span>减少动态效果<small>关闭环境粒子和自动散步</small></span><input id="reduce-motion" type="checkbox"></label></div>
+ <div id="settings-status" role="status"></div><button id="save-settings" class="primary save-button">保存设置</button></div></section>
+</div><script src="characters.js"></script><script src="web-chat.js"></script></body></html>

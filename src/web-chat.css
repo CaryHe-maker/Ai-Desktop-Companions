@@ -1,0 +1,44 @@
+/* Shell around the official page. The page itself is a native view placed exactly over .card
+   (see FRAME in web-chat.cjs: 9px sides, 59px top, 13px radius). */
+.web-shell{background:linear-gradient(160deg,color-mix(in srgb,var(--pale) 78%,#fff),var(--paper) 46%,color-mix(in srgb,var(--glow) 38%,var(--paper)));border-color:color-mix(in srgb,var(--accent) 22%,var(--line))}
+.bar{height:54px;min-height:54px;display:flex;align-items:center;justify-content:space-between;gap:8px;padding:0 8px 0 13px;-webkit-app-region:drag}
+.who{display:flex;align-items:center;gap:10px;min-width:0}
+.avatar{position:relative;width:34px;height:34px;flex-shrink:0}
+.avatar img{width:34px;height:34px;border-radius:12px;border:1.5px solid #fff;box-shadow:0 2px 8px color-mix(in srgb,var(--accent) 26%,transparent)}
+.avatar i{position:absolute;right:-2px;bottom:-2px;width:10px;height:10px;border-radius:50%;background:#8cba98;border:2px solid var(--paper);transition:background .3s}
+body.busy .avatar i{background:var(--accent);animation:pulse 1.1s ease-in-out infinite}
+body.offline .avatar i{background:#d08b82}
+.names{min-width:0}
+.names h1{font-family:Georgia,'Microsoft YaHei',serif;font-size:14px;font-weight:500;letter-spacing:.8px;margin:0 0 3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.names p{margin:0;font-size:9.5px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;transition:color .3s}
+body.busy .names p{color:var(--accent-dark)}body.offline .names p{color:#ae5c59}
+.tools{display:flex;align-items:center;gap:2px;flex-shrink:0;-webkit-app-region:no-drag}
+.tools button{height:28px;min-width:28px;display:grid;place-items:center;border-radius:9px;color:var(--accent-dark)}
+.tools button svg{width:17px;height:17px;stroke-width:1.7}
+.tools button:hover:not(:disabled){background:#ffffffb8;box-shadow:0 1px 4px color-mix(in srgb,var(--accent) 16%,transparent)}
+.tools button:disabled{opacity:.28}
+.tools .pill{display:flex;gap:3px;padding:0 9px 0 6px;font-size:10.5px;background:#ffffff8c;border:1px solid color-mix(in srgb,var(--accent) 18%,transparent)}
+.tools .pill svg{width:14px;height:14px}
+.tools .divider{width:1px;height:16px;background:color-mix(in srgb,var(--accent) 22%,transparent);margin:0 4px}
+.tools #minimize,.tools #close{color:var(--muted)}
+.tools #close:hover{background:#f8e2e0;color:#ae5c59}
+.progress{position:absolute;left:9px;right:9px;top:56px;height:2px;border-radius:2px;overflow:hidden;opacity:0;transition:opacity .35s}
+.progress.on{opacity:1}
+.progress i{display:block;width:38%;height:100%;border-radius:2px;background:linear-gradient(90deg,transparent,var(--accent),transparent);animation:slide 1.15s ease-in-out infinite}
+.card{position:absolute;left:8px;right:8px;top:58px;bottom:8px;border-radius:14px;border:1px solid color-mix(in srgb,var(--accent) 16%,var(--line));background:#fffdfb;box-shadow:0 6px 22px color-mix(in srgb,var(--accent) 13%,transparent),0 1px 2px #0000000a;overflow:hidden}
+.veil{height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 34px 40px;text-align:center}
+.veil-art{height:157px;width:160px;position:relative;display:flex;justify-content:center}
+.veil-art img{width:117px;height:156px;object-fit:contain;position:relative;z-index:1;filter:drop-shadow(0 5px 4px #5c438914);animation:float 4s ease-in-out infinite}
+.veil h2{font-family:Georgia,'Microsoft YaHei',serif;font-weight:500;font-size:16px;letter-spacing:1px;margin:16px 0 8px}
+.veil p{font-size:11px;line-height:1.8;color:var(--muted);margin:0}
+.skeleton{width:min(250px,80%);margin-top:26px;display:grid;gap:9px}
+.skeleton i{height:9px;border-radius:6px;background:linear-gradient(90deg,var(--pale) 20%,#fff 45%,var(--pale) 70%);background-size:220% 100%;animation:shimmer 1.5s linear infinite}
+.skeleton i:nth-child(2){width:82%;animation-delay:.12s}.skeleton i:nth-child(3){width:58%;animation-delay:.24s}
+.veil-actions{display:flex;gap:9px;margin-top:22px}
+.veil-actions .primary{width:auto;padding:9px 18px}.veil-actions .secondary{padding:9px 14px}
+#settings-panel{top:54px;border-radius:14px 14px 0 0}
+#settings-status{margin-top:12px}
+@keyframes slide{from{transform:translateX(-100%)}to{transform:translateX(265%)}}
+@keyframes shimmer{from{background-position:120% 0}to{background-position:-100% 0}}
+@keyframes pulse{50%{transform:scale(1.35);opacity:.55}}
+@media(max-width:400px){.tools .pill span{display:none}.tools .pill{padding:0 6px}}

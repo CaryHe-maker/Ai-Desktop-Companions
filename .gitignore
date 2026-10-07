@@ -1,0 +1,64 @@
+# Dependencies, builds, temporary previews and local application profiles
+node_modules/
+dist/
+build/
+out/
+.cache/
+artifacts/
+data/
+coverage/
+Partitions/
+User Data/
+Cache/
+Code Cache/
+GPUCache/
+*.log
+*.dmp
+*.tmp
+*.bak
+
+# Local credentials and configuration (never commit encrypted credentials either)
+.env
+.env.*
+!.env.example
+.npmrc
+*.pem
+*.key
+*.p12
+*.pfx
+credentials*.json
+secrets*.json
+api-key*.json
+apikey*.json
+tokens*.json
+*.sqlite
+*.sqlite3
+*.db
+settings.json
+host.json
+chatgpt-registration.json
+history-*.json
+session-*.json
+sessions-*.json
+web-agents.json
+Cookies*
+Login Data*
+Local State
+.aws/
+.ssh/
+.codex/
+.agents/
+.vscode/
+.idea/
+
+# Personal reference downloads and local image-generation work files.
+# Runtime frames in assets/v3, v4 and v5 are intentionally distributed.
+/Camera_XHS_*
+/assets/source/
+/assets/v2/
+/assets/prompts*.json
+__pycache__/
+*.pyc
+.DS_Store
+Thumbs.db
+Desktop.ini

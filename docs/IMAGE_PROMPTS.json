@@ -1,0 +1,67 @@
+{
+  "tool": "Built-in imagegen",
+  "note": "Public prompt text only. Local output paths and generation session identifiers are omitted.",
+  "dailyActions": [
+    {
+      "id": "gpt",
+      "action": "look",
+      "prompt": "Create ONE animation SPRITE SHEET, exactly FOUR columns and FOUR rows = SIXTEEN small full-body sprites. Square canvas. This is an animation sequence of the SAME reference character, NOT a sticker pack. All 16 frames show consecutive moments of ONE motion: head turns slightly left over frames 1-5, back to center frames 6-8, slightly right frames 9-12, back to center frames 13-16. Read left to right top to bottom. Preserve exact reference identity, costume, colors, body proportions, hair, accessories. Each character must be small enough to fit wholly inside its equal square cell, with 15% transparent padding on all sides. Same character scale, same front camera, feet on same baseline. Transparent background. No text, symbols, decoration, panels, scenery or extra props. Render all SIXTEEN frames, all FOUR ROWS visible. Detailed anime style consistent with reference."
+    },
+    {
+      "id": "gpt",
+      "action": "bow",
+      "prompt": "Create ONE animation SPRITE SHEET, exactly FOUR columns and FOUR rows = SIXTEEN small full-body sprites. Square canvas. This is an animation sequence of the SAME reference character, NOT a sticker pack. All 16 frames show consecutive moments of ONE motion: polite bow: upright frames 1-3, slowly incline head and torso frames 4-8, hold slight bow frames 9-10, slowly stand upright frames 11-16. Read left to right top to bottom. Preserve exact reference identity, costume, colors, body proportions, hair, accessories. Each character must be small enough to fit wholly inside its equal square cell, with 15% transparent padding on all sides. Same character scale, same front camera, feet on same baseline. Transparent background. No text, symbols, decoration, panels, scenery or extra props. Render all SIXTEEN frames, all FOUR ROWS visible. Detailed anime style consistent with reference."
+    },
+    {
+      "id": "gpt",
+      "action": "greet",
+      "prompt": "Create ONE animation SPRITE SHEET, exactly FOUR columns and FOUR rows = SIXTEEN small full-body sprites. Square canvas. This is an animation sequence of the SAME reference character, NOT a sticker pack. All 16 frames show consecutive moments of ONE motion: friendly wave: slowly raise one hand frames 1-5, wave gently frames 6-11, slowly lower hand frames 12-16. Read left to right top to bottom. Preserve exact reference identity, costume, colors, body proportions, hair, accessories. Each character must be small enough to fit wholly inside its equal square cell, with 15% transparent padding on all sides. Same character scale, same front camera, feet on same baseline. Transparent background. No text, symbols, decoration, panels, scenery or extra props. Render all SIXTEEN frames, all FOUR ROWS visible. Detailed anime style consistent with reference."
+    },
+    {
+      "id": "gpt",
+      "action": "stretch",
+      "prompt": "Create ONE animation SPRITE SHEET, exactly FOUR columns and FOUR rows = SIXTEEN small full-body sprites. Square canvas. This is an animation sequence of the SAME reference character, NOT a sticker pack. All 16 frames show consecutive moments of ONE motion: sleepy stretch: relaxed frame 1, eyes close and shoulders rise frames 2-6, gently stretch arms frames 7-10, relax and open eyes frames 11-16. Read left to right top to bottom. Preserve exact reference identity, costume, colors, body proportions, hair, accessories. Each character must be small enough to fit wholly inside its equal square cell, with 15% transparent padding on all sides. Same character scale, same front camera, feet on same baseline. Transparent background. No text, symbols, decoration, panels, scenery or extra props. Render all SIXTEEN frames, all FOUR ROWS visible. Detailed anime style consistent with reference."
+    },
+    {
+      "id": "claude",
+      "action": "look",
+      "prompt": "Create ONE animation SPRITE SHEET, exactly FOUR columns and FOUR rows = SIXTEEN small full-body sprites. Square canvas. This is an animation sequence of the SAME reference character, NOT a sticker pack. All 16 frames show consecutive moments of ONE motion: head turns slightly left over frames 1-5, back to center frames 6-8, slightly right frames 9-12, back to center frames 13-16. Read left to right top to bottom. Preserve exact reference identity, costume, colors, body proportions, hair, accessories. Each character must be small enough to fit wholly inside its equal square cell, with 15% transparent padding on all sides. Same character scale, same front camera, feet on same baseline. Transparent background. No text, symbols, decoration, panels, scenery or extra props. Render all SIXTEEN frames, all FOUR ROWS visible. Detailed anime style consistent with reference."
+    },
+    {
+      "id": "claude",
+      "action": "bow",
+      "prompt": "Create ONE animation SPRITE SHEET, exactly FOUR columns and FOUR rows = SIXTEEN small full-body sprites. Square canvas. This is an animation sequence of the SAME reference character, NOT a sticker pack. All 16 frames show consecutive moments of ONE motion: polite bow: upright frames 1-3, slowly incline head and torso frames 4-8, hold slight bow frames 9-10, slowly stand upright frames 11-16. Read left to right top to bottom. Preserve exact reference identity, costume, colors, body proportions, hair, accessories. Each character must be small enough to fit wholly inside its equal square cell, with 15% transparent padding on all sides. Same character scale, same front camera, feet on same baseline. Transparent background. No text, symbols, decoration, panels, scenery or extra props. Render all SIXTEEN frames, all FOUR ROWS visible. Detailed anime style consistent with reference."
+    },
+    {
+      "id": "claude",
+      "action": "greet",
+      "prompt": "Create ONE animation SPRITE SHEET, exactly FOUR columns and FOUR rows = SIXTEEN small full-body sprites. Square canvas. This is an animation sequence of the SAME reference character, NOT a sticker pack. All 16 frames show consecutive moments of ONE motion: friendly wave: slowly raise one hand frames 1-5, wave gently frames 6-11, slowly lower hand frames 12-16. Read left to right top to bottom. Preserve exact reference identity, costume, colors, body proportions, hair, accessories. Each character must be small enough to fit wholly inside its equal square cell, with 15% transparent padding on all sides. Same character scale, same front camera, feet on same baseline. Transparent background. No text, symbols, decoration, panels, scenery or extra props. Render all SIXTEEN frames, all FOUR ROWS visible. Detailed anime style consistent with reference."
+    },
+    {
+      "id": "claude",
+      "action": "stretch",
+      "prompt": "Create ONE animation SPRITE SHEET, exactly FOUR columns and FOUR rows = SIXTEEN small full-body sprites. Square canvas. This is an animation sequence of the SAME reference character, NOT a sticker pack. All 16 frames show consecutive moments of ONE motion: sleepy stretch: relaxed frame 1, eyes close and shoulders rise frames 2-6, gently stretch arms frames 7-10, relax and open eyes frames 11-16. Read left to right top to bottom. Preserve exact reference identity, costume, colors, body proportions, hair, accessories. Each character must be small enough to fit wholly inside its equal square cell, with 15% transparent padding on all sides. Same character scale, same front camera, feet on same baseline. Transparent background. No text, symbols, decoration, panels, scenery or extra props. Render all SIXTEEN frames, all FOUR ROWS visible. Detailed anime style consistent with reference."
+    },
+    {
+      "id": "deepseek",
+      "action": "look",
+      "prompt": "Create ONE animation SPRITE SHEET, exactly FOUR columns and FOUR rows = SIXTEEN small full-body sprites. Square canvas. This is an animation sequence of the SAME reference character, NOT a sticker pack. All 16 frames show consecutive moments of ONE motion: head turns slightly left over frames 1-5, back to center frames 6-8, slightly right frames 9-12, back to center frames 13-16. Read left to right top to bottom. Preserve exact reference identity, costume, colors, body proportions, hair, accessories. Each character must be small enough to fit wholly inside its equal square cell, with 15% transparent padding on all sides. Same character scale, same front camera, feet on same baseline. Transparent background. No text, symbols, decoration, panels, scenery or extra props. Render all SIXTEEN frames, all FOUR ROWS visible. Detailed anime style consistent with reference."
+    },
+    {
+      "id": "deepseek",
+      "action": "bow",
+      "prompt": "Create ONE animation SPRITE SHEET, exactly FOUR columns and FOUR rows = SIXTEEN small full-body sprites. Square canvas. This is an animation sequence of the SAME reference character, NOT a sticker pack. All 16 frames show consecutive moments of ONE motion: polite bow: upright frames 1-3, slowly incline head and torso frames 4-8, hold slight bow frames 9-10, slowly stand upright frames 11-16. Read left to right top to bottom. Preserve exact reference identity, costume, colors, body proportions, hair, accessories. Each character must be small enough to fit wholly inside its equal square cell, with 15% transparent padding on all sides. Same character scale, same front camera, feet on same baseline. Transparent background. No text, symbols, decoration, panels, scenery or extra props. Render all SIXTEEN frames, all FOUR ROWS visible. Detailed anime style consistent with reference."
+    },
+    {
+      "id": "deepseek",
+      "action": "greet",
+      "prompt": "Create ONE animation SPRITE SHEET, exactly FOUR columns and FOUR rows = SIXTEEN small full-body sprites. Square canvas. This is an animation sequence of the SAME reference character, NOT a sticker pack. All 16 frames show consecutive moments of ONE motion: friendly wave: slowly raise one hand frames 1-5, wave gently frames 6-11, slowly lower hand frames 12-16. Read left to right top to bottom. Preserve exact reference identity, costume, colors, body proportions, hair, accessories. Each character must be small enough to fit wholly inside its equal square cell, with 15% transparent padding on all sides. Same character scale, same front camera, feet on same baseline. Transparent background. No text, symbols, decoration, panels, scenery or extra props. Render all SIXTEEN frames, all FOUR ROWS visible. Detailed anime style consistent with reference."
+    },
+    {
+      "id": "deepseek",
+      "action": "stretch",
+      "prompt": "Create ONE animation SPRITE SHEET, exactly FOUR columns and FOUR rows = SIXTEEN small full-body sprites. Square canvas. This is an animation sequence of the SAME reference character, NOT a sticker pack. All 16 frames show consecutive moments of ONE motion: sleepy stretch: relaxed frame 1, eyes close and shoulders rise frames 2-6, gently stretch arms frames 7-10, relax and open eyes frames 11-16. Read left to right top to bottom. Preserve exact reference identity, costume, colors, body proportions, hair, accessories. Each character must be small enough to fit wholly inside its equal square cell, with 15% transparent padding on all sides. Same character scale, same front camera, feet on same baseline. Transparent background. No text, symbols, decoration, panels, scenery or extra props. Render all SIXTEEN frames, all FOUR ROWS visible. Detailed anime style consistent with reference."
+    }
+  ],
+  "entrance": "Use the original 4x4 entrance atlas as a reference. Draw intermediate poses between adjacent source cells. Keep the doorway, camera, colors, character identity and transparent background unchanged."
+}

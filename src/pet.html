@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self'; connect-src 'none'">
+  <link rel="stylesheet" href="pet.css"><title>Deskbot · 小小日常</title>
+</head>
+<body>
+  <main id="scene">
+    <canvas id="animation" aria-hidden="true"></canvas>
+    <div id="bubble" role="status"></div>
+    <div id="pet" tabindex="0" role="button" aria-label="点击聊天，拖动移动，右键打开动作菜单"></div>
+    <nav id="toolbar" aria-label="宠物操作">
+      <button data-action="chat" title="聊聊天">◌</button>
+      <button data-action="wave" title="打招呼">✦</button>
+      <button data-action="signature" id="signature-button" title="她的小习惯">❀</button>
+      <button data-action="sleep" title="休息 / 叫醒">☾</button>
+      <button data-action="menu" title="更多动作">···</button>
+    </nav>
+    <div id="nameplate"></div>
+  </main>
+  <script src="characters.js"></script><script src="animation-assets.js"></script>
+  <script src="pet-motion.js"></script><script src="pet.js"></script>
+</body>
+</html>

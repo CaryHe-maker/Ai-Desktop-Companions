@@ -1,0 +1,20 @@
+/* Sunflower-study skin for the claude.ai conversation page. Applied only when a composer is on
+   screen, never on sign-in or verification. Claude's own palette is already warm paper, so this
+   only nudges it toward the book-house colours; unknown names are ignored by the browser. */
+html,body { color-scheme:light!important; accent-color:#b97644; caret-color:#b97644; }
+:root,[data-theme],[data-mode] {
+  --bg-000:36 60% 99%!important; --bg-100:36 52% 97.4%!important; --bg-200:35 44% 95%!important; --bg-300:34 38% 92.4%!important; --bg-400:33 32% 89%!important;
+  --accent-main-000:26 47% 48%!important; --accent-main-100:26 47% 50%!important; --accent-main-200:27 54% 57%!important; --accent-brand:26 47% 50%!important;
+  --border-300:30 34% 78%!important;
+}
+html,body { background:#fdfaf5!important; }
+::selection { background:#f5d7b1; color:#3d2d20; }
+a { text-underline-offset:3px; }
+/* The composer: the same soft card the other companions use. */
+fieldset:has([contenteditable="true"]) { border-radius:20px!important; }
+[data-testid="chat-input"],div.ProseMirror[contenteditable="true"] { font-family:'Segoe UI','Microsoft YaHei UI',sans-serif!important; }
+pre { border-radius:12px!important; }
+::-webkit-scrollbar { width:6px; height:6px; }
+::-webkit-scrollbar-track { background:transparent; }
+::-webkit-scrollbar-thumb { background:#e6d3bd; border-radius:8px; }
+::-webkit-scrollbar-thumb:hover { background:#d2a777; }

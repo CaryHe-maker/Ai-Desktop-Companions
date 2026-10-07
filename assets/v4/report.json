@@ -1,0 +1,32 @@
+{
+  "gpt": {
+    "newFrames": 64,
+    "uniqueFrames": 64,
+    "actions": [
+      "look",
+      "bow",
+      "greet",
+      "stretch"
+    ]
+  },
+  "claude": {
+    "newFrames": 64,
+    "uniqueFrames": 64,
+    "actions": [
+      "look",
+      "bow",
+      "greet",
+      "stretch"
+    ]
+  },
+  "deepseek": {
+    "newFrames": 64,
+    "uniqueFrames": 64,
+    "actions": [
+      "look",
+      "bow",
+      "greet",
+      "stretch"
+    ]
+  }
+}

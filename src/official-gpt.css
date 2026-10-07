@@ -1,0 +1,39 @@
+/* Moonlight skin for the ChatGPT conversation page. Applied only when a composer is on screen,
+   never on sign-in or verification. The site ships hashed class names, so every rule hangs on
+   ids, test ids, ARIA labels or element types and simply does nothing if the site changes. */
+html,body { --main-surface-primary:#fbf9fd!important; --main-surface-secondary:#f0eaf6!important; --sidebar-surface-primary:#fbf9fd!important; --message-surface:#eee7f7!important; --text-primary:#393140!important; --text-secondary:#85778f!important; color-scheme:light!important; background:#fbf9fd!important; color:#393140!important; accent-color:#8c75b7; caret-color:#8c75b7; }
+main,[data-testid="mobile-app-shell"],[data-testid="mobile-app-shell-scroll-container"],[data-swipe-visual-viewport] { background:#fbf9fd!important; }
+::selection { background:#dfcdfc; color:#2f2838; }
+a { text-underline-offset:3px; }
+
+/* The window is one conversation wide: the history drawer and its toggles stay folded away.
+   "精简外观" in the ⋯ menu turns this whole sheet off to reach history and account settings. */
+body:has(#prompt-textarea) #stage-slideover-sidebar,
+body:has(#prompt-textarea) #stage-sidebar-tiny-bar,
+body:has(#prompt-textarea) [data-testid="sidebar"],
+body:has(#prompt-textarea) [data-testid="sidebar-toggle-button"],
+body:has(#prompt-textarea) [data-testid="open-sidebar-button"],
+body:has(#mobile-composer-prompt) aside[aria-label="侧边栏"],
+body:has(#mobile-composer-prompt) aside[aria-label="Sidebar"],
+body:has(#desktop-composer-prompt) aside[aria-label="侧边栏"],
+body:has(#desktop-composer-prompt) aside[aria-label="Sidebar"],
+body:has(#mobile-composer-prompt) button[aria-label="打开边栏"],
+body:has(#mobile-composer-prompt) button[aria-label="Open sidebar"],
+body:has(#desktop-composer-prompt) button[aria-label="打开边栏"],
+body:has(#desktop-composer-prompt) button[aria-label="Open sidebar"] { display:none!important; }
+body:has(#prompt-textarea) #stage-slideover-sidebar { width:0!important; min-width:0!important; }
+
+/* Model and mode controls, menus, attachments, consent, errors and account access are kept. */
+header { background:transparent!important; }
+[data-message-author-role="user"] { --message-surface:#eee7f7; }
+[data-message-author-role="assistant"] { font-size:14px; line-height:1.85; }
+form:has(#prompt-textarea),form:has(#mobile-composer-prompt),form:has(#desktop-composer-prompt) { border:1px solid #e3d9ee!important; border-radius:20px!important; background:#fff!important; box-shadow:0 6px 22px #6d589414,0 1px 2px #6d58940f!important; transition:border-color .2s,box-shadow .2s; }
+form:has(#prompt-textarea):focus-within,form:has(#mobile-composer-prompt):focus-within,form:has(#desktop-composer-prompt):focus-within { border-color:#b9a5dc!important; box-shadow:0 0 0 3px #eee7f7,0 6px 22px #6d589418!important; }
+#prompt-textarea,#mobile-composer-prompt,#desktop-composer-prompt { font-family:'Segoe UI','Microsoft YaHei UI',sans-serif!important; font-size:14px!important; }
+[data-testid="send-button"],button[aria-label="发送消息"],button[aria-label="发送提示"],button[aria-label="Send message"],button[aria-label="Send prompt"] { background:#8c75b7!important; color:#fff!important; }
+[data-testid="send-button"]:disabled,button[aria-label="发送消息"]:disabled,button[aria-label="Send message"]:disabled { background:#d9cfe6!important; }
+pre { border-radius:12px!important; }
+::-webkit-scrollbar { width:6px; height:6px; }
+::-webkit-scrollbar-track { background:transparent; }
+::-webkit-scrollbar-thumb { background:#d8cde4; border-radius:8px; }
+::-webkit-scrollbar-thumb:hover { background:#b9a5dc; }
